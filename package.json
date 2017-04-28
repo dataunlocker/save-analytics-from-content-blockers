@@ -1,0 +1,25 @@
+{
+  "name": "save-analytics-from-content-blockers",
+  "version": "1.0.0",
+  "description": "A repository with code sample for the Medium article (will be released soon).",
+  "main": "server.js",
+  "dependencies": {
+    "express": "^4.15.2",
+    "express-http-proxy": "^1.0.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"No test specified\" && exit 0",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ZitRos/save-analytics-from-content-blockers.git"
+  },
+  "author": "nikita.tk",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ZitRos/save-analytics-from-content-blockers/issues"
+  },
+  "homepage": "https://github.com/ZitRos/save-analytics-from-content-blockers#readme"
+}
