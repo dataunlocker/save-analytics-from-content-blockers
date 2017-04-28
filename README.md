@@ -1,10 +1,8 @@
 # Save Analytics From Content Blockers
 
-A repository with demo application for my Medium article "Save Your Analytics from Content Blockers"
-(will be released soon).
+This is a repository with demo application code for [my Medium article "Save Your Analytics from Content Blockers"](https://medium.com/@zitro/save-your-analytics-from-content-blockers-7ee08c6ec7ee).
 
-You can use modified analytics script directly from GitHub pages (until it appears in ad-blockers 
-filter):
+You can use modified analytics script directly from GitHub pages (until it appears in ad-blockers filters :smile:):
 
 ```html
 <script>
@@ -16,15 +14,14 @@ filter):
 <script src="https://zitros.github.io/save-analytics-from-content-blockers/analytics.js" async></script>
 ```
 
-Testing
--------
+Running the Example
+-------------------
 
-Having latest [NodeJS and NPM](https://nodejs.org) installed, run the server with the following 
-command:
+Having the latest [NodeJS and NPM](https://nodejs.org) installed, run the server with the following command:
  
 ```bash
 npm install
 npm run start
 ```
 
-Now go to the printed link.
+Then go to the printed link. To explore the example completely, you need **static IP address** at least.
