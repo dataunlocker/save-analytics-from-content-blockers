@@ -25,3 +25,8 @@ npm run start
 ```
 
 Then go to the printed link. To explore the example completely, you need **static IP address** at least.
+
+UPDATE IS COMING
+----------------
+
+As of 3/14/2019, I've developed a more robust solution for Google Analytics / Google Tag Manager, which also comes with URL masking and advanced on-the-fly transformations for everything that may've been blocked by ad blockers. I'll give it a go soon. You can subscribe to [my GitHub](https://github.com/ZitRos) / [Medium](https://medium.com/@zitro) to stay tuned.
