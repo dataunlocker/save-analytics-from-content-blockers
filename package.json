@@ -1,25 +1,28 @@
 {
-  "name": "save-analytics-from-content-blockers",
+  "name": "google-tag-manager-proxy",
   "version": "1.0.0",
-  "description": "A repository with code sample for the Medium article (will be released soon).",
-  "main": "server.js",
-  "dependencies": {
-    "express": "^4.15.2",
-    "express-http-proxy": "^1.0.1"
-  },
-  "devDependencies": {},
+  "description": "Proxying request to google analytics and tag manager",
+  "module": "src/api.js",
   "scripts": {
-    "test": "echo \"No test specified\" && exit 0",
-    "start": "node server.js"
+    "test": "exit 0",
+    "start": "node -r esm src/api.js"
   },
+  "keywords": [
+    "proxy"
+  ],
+  "author": "nikita.tk",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ZitRos/save-analytics-from-content-blockers.git"
   },
-  "author": "nikita.tk",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/ZitRos/save-analytics-from-content-blockers/issues"
   },
-  "homepage": "https://github.com/ZitRos/save-analytics-from-content-blockers#readme"
+  "homepage": "https://github.com/ZitRos/save-analytics-from-content-blockers#readme",
+  "dependencies": {
+    "esm": "^3.2.7",
+    "express": "^4.16.4",
+    "express-http-proxy": "^1.5.1"
+  }
 }
