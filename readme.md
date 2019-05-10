@@ -60,6 +60,8 @@ Proxied: www.google-analytics.com/collect?v=1&_v=j73&a=531530768&t=pageview&_s=1
 
 Check the [test-static/index.html](test-static/index.html) file's code to see how to bind the proxied analytics to your front end.
 
+Later, you can containerize this repository and route the incoming traffic to `/gtm-proxy` path (for example) through this container in order to avoid analytics blocking.
+
 ## Configuration 
 
 You can configure which third-parties to proxy/replace and how to do it in the config file. Find the actual configuration in [config.js](config.js) file:

@@ -1,11 +1,10 @@
 const env = process.env.APP__ENV_NAME || "local";
 const isLocal = env === "local" || env === "test";
-const proxyDomain = process.env.PROXY_DOMAIN || "localhost";
 
 export default {
     isLocalEnv: isLocal,
     httpPort: process.env.PORT || 80,
-    proxyDomain: proxyDomain, // Your domain
+    proxyDomain: "",          // Domain to proxy calls through. Leave it empty to use the requested domain as a proxy domain
     proxy: {                  // Proxy configuration is here
         domains: [            // These domains are replaced in any proxied response (including scripts, URLs and redirects)
             "adservice.google.com",
@@ -48,7 +47,7 @@ export default {
             "www.googletagmanager.com": [
                 {
                     regex: /"https\:\/\/s","http:\/\/a","\.adroll\.com/,
-                    replace: `"https://${ proxyDomain }/s","http://${ proxyDomain }/a",".adroll.com`
+                    replace: ({ host }) => `"https://${ host }/s","http://${ host }/a",".adroll.com`
                 }
             ],
             "eb2.3lift.com": [

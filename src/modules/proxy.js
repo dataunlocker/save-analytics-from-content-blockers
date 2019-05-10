@@ -15,13 +15,13 @@ const maskRegex = new RegExp(
     Array.from(maskPaths).join("|").replace(/\//g, "\\/"),
     "gi"
 );
-const replaceDomains = (match, pos, str) => {
+const replaceDomainsForHost = (host) => (match, pos, str) => {
     const escapedSlashes = str[pos - 2] === "\\" && str[pos - 2] === "/"
     const r = `${
         escapedSlashes
-            ? config.proxyDomain.replace(/\//g, "\\/") + "\\"
-            : config.proxyDomain
-    }/${ match }`
+            ? (config.proxyDomain || host).replace(/\//g, "\\/") + "\\"
+            : (config.proxyDomain || host)
+    }/${ match }`;
     return r;
 };
 
@@ -37,7 +37,7 @@ export function createDefaultProxy (targetDomain, proxyOptionsOverride = {}) {
                 ? proxyOptionsOverride["proxyReqOptDecorator"](proxyRequest, originalRequest)
                 : proxyRequest;
         },
-        userResHeaderDecorator: (headers) => {
+        userResHeaderDecorator: (headers, { headers: { host } }) => {
             if (headers.location) {
                 if (config.proxy.specialContentReplace[servername]) { // Keep before other replacements
                     const replacements = config.proxy.specialContentReplace[servername];
@@ -46,20 +46,20 @@ export function createDefaultProxy (targetDomain, proxyOptionsOverride = {}) {
                     }
                 }
                 headers.location = headers.location
-                    .replace(replaceDomainRegex, replaceDomains)
+                    .replace(replaceDomainRegex, replaceDomainsForHost(host))
                     .replace(maskRegex, match => mask(match));
             }
             return headers;
         },
-        userResDecorator: (_, proxyResData) => {
+        userResDecorator: (_, proxyResData, { headers: { host } }) => {
             if (_.req.res && _.req.res.client && _.req.res.client.servername) {
                 servername = _.req.res.client.servername;
             }
-            let pre = proxyResData.toString().replace(replaceDomainRegex, replaceDomains);
+            let pre = proxyResData.toString().replace(replaceDomainRegex, replaceDomainsForHost(host));
             if (config.proxy.specialContentReplace[servername]) {
                 const replacements = config.proxy.specialContentReplace[servername];
                 for (const r of replacements) {
-                    pre = pre.replace(r.regex, r.replace);
+                    pre = pre.replace(r.regex, r.replace instanceof Function ? r.replace({ host }) : r.replace);
                 }
             }
             pre = pre.replace(maskRegex, (match) => { // Mask configured URLs
