@@ -95,8 +95,6 @@ You can configure which third-parties to proxy/replace and how to do it in the c
     }
 ```
 
-Note the environment variables you can set or replace.
-
 ## License
 
 [MIT](LICENSE) © [Nikita Savchenko](https://nikita.tk)
