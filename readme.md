@@ -15,7 +15,9 @@ In order to solve ad-blocking issues, we have to introduce **a proxy which will 
 
 The next diagram demonstrates the problem with Google Tag Manager / Google Analytics being blocked by ad blockers.
 
-![Google Tag Manager Proxy - No proxy](https://user-images.githubusercontent.com/4989256/55686876-52fc0200-596f-11e9-8d17-399b97486a02.png)
+<p align="center">
+  <img width="50%" alt="Google Tag Manager Proxy - Without Proxy" src="https://user-images.githubusercontent.com/4989256/55686876-52fc0200-596f-11e9-8d17-399b97486a02.png"></img>
+</p>
 
 In general, all ad blocks work the same way: they block requests to Google Analytics servers and some URLs which match their blacklists. In order to avoid blocking Google analytics, all such requests must be proxied through URLs that aren't blacklisted. Furthermore, some URLs have to be masked in order for ad-blocker not to recognize the URL.
 
@@ -26,7 +28,9 @@ Thus, this proxy service:
 3. Modifies the response and replaces URLs containing blacklisted paths like `/google-analytics`.
 4. Modifies proxied request to Google Measurement Protocol and overwrites user's IP address.
 
-![Google Tag Manager Proxy - With Proxy](https://user-images.githubusercontent.com/4989256/55686879-542d2f00-596f-11e9-8313-5837af75cc2e.png)
+<p align="center">
+  <img width="80%" alt="Google Tag Manager Proxy - With Proxy" src="https://user-images.githubusercontent.com/4989256/55686879-542d2f00-596f-11e9-8313-5837af75cc2e.png"></img>
+</p>
 
 ## Prerequisites
 
