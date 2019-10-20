@@ -32,17 +32,30 @@ Thus, this proxy service:
   <img width="80%" alt="Google Tag Manager Proxy - With Proxy" src="https://user-images.githubusercontent.com/4989256/55686879-542d2f00-596f-11e9-8313-5837af75cc2e.png"></img>
 </p>
 
+This repository contains a NodeJS-based proxy server which does the smart proxying magic for you. All you need is to
+run this proxy server on your end and figure out how to combine it with your application. Read more on this below.
+
+Technically, NodeJS proxy API works as follows:
+
+1. Request to `/` returns sample application (see [src/test-static/index.html](src/test-static/index.html)) if enabled (see config).
+2. Request to `/domain-name-or-masked-name/*` proxies requests to `domain-name-or-masked-name` with path `*`.
+3. You can run the application using `npm install && npm run start` and request [http://localhost/www.googletagmanager.com/gtag/js?id=GTM-1234567](http://localhost/www.googletagmanager.com/gtag/js?id=GTM-1234567) (replace `GTM-1234567` with your GTM tag). That's it!
+
 ## Prerequisites
 
-In order to enable analytics proxying, you need two things:
+In order to enable analytics proxying, you have to have some "DevOps" skills to perform the following:
 
-1. A dedicated back end to launch your own proxy (NodeJS application in this repository).
-2. To forward a particular path (for example, `/gtm-proxy*`) within your domain to this back end (stripping the path itself). Ultimately, for example, the request path `https://your-domain.com/gtm-proxy/www.google-analytics.com/analytics.js` should resolve to `/www.google-analytics.com/analytics.js` request to the NodeJS proxy application (this repository).
-3. Modify your front end Google Tag Manager / Google Analytics script to request the proxied file - you're all set!
+1. Run a dedicated back end with proxy (NodeJS application in this repository).
+2. Enable forwarding of a particular path (for example, `/gtm-proxy/*`) on your domain to this back end.
+    1. It is important to use your own domain, as using centralized domains might appear at the ad-blocking databases.
+    2. Make sure you strip the prefix path before proxy, the request path `https://your-domain.com/gtm-proxy/www.google-analytics.com/analytics.js` should land as `/www.google-analytics.com/analytics.js` at the NodeJS proxy application (this repository), stripping `gtm-proxy/` from the URL.
+3. **Modify your initial Google Tag Manager / Google Analytics script to request the proxied file**
+    1. Replace `https://www.googletagmanager.com/gtag/js?id=UA-123456-7` there to use `https://your-domain.com/gtm-proxy/www.googletagmanager.com/gtag/js?id=UA-123456-7` (or whatever path you've set up).
+    2. The [example](src/test-static/index.html) in this repository uses `/www.googletagmanager.com/gtm.js` (which is equivalent of `http://localhost/www.googletagmanager.com/gtm.js`).
 
 **This to consider before implementing the solution**:
 
-1. Your third-parties in Google Tag Manager can rate-limit your requests if you have many users, as now they're all going from the same IP address (your back end). If you've faced rate-limiting, please let me know by creating an issue in this repository!
+1. Your third-parties in Google Tag Manager can rate-limit your requests if you have many users, as now they're all going from the same IP address (your back end). If you've faced rate-limiting, please let me know by creating an issue in this repository! So far, we didn't.
 2. Some third-parties like owox.com (yet) does not support IP overriding like Google Analytics does, meaning that all the users in your reports may appear on a map near your office/server. That's apparently their fault, but anyway you have to deal with this somehow.
 3. Not all the third-parties are covered by the current solution. This repository is open for your PRs if you've found more third-parties that require proxying!
 
