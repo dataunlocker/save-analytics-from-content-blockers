@@ -69,6 +69,10 @@ export default {
         },
         maskPaths: [ // Paths which are masked in URLs and redirects in order to avoid firing ad-blocking rules
             "/google-analytics",
+            "/adsbygoogle",
+            "/googleads",
+            "/log_event\\?",
+            "/collect\\?",
             "/r/collect",
             "/j/collect",
             "/pageread/conversion",
@@ -79,6 +83,7 @@ export default {
             "/pixel",
             "/AdServer",
             "/ads/",
+            "/gtm.js",
             "openx\\."
         ],
     }
