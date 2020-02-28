@@ -1,7 +1,7 @@
 export function info (...args) {
-    console.info(...args);
+    console.info(new Date().toISOString(), ...args);
 }
 
 export function error (...args) {
-    console.error(...args);
+    console.error(new Date().toISOString(), ...args);
 }
