@@ -16,12 +16,12 @@ const maskRegex = new RegExp(
     "gi"
 );
 const replaceDomainsForHost = (host) => (match, pos, str) => {
-    const escapedSlashes = str[pos - 2] === "\\" && str[pos - 2] === "/"
+    const escapedSlashes = str[pos - 2] === "\\" && str[pos - 2] === "/" // wat?
     const r = `${
         escapedSlashes
             ? (config.proxyDomain || host).replace(/\//g, "\\/") + "\\"
             : (config.proxyDomain || host)
-    }/${ match }`;
+    }${ config.strippedPath }/${ match }`;
     return r;
 };
 
@@ -37,19 +37,31 @@ export function createDefaultProxy (targetDomain, proxyOptionsOverride = {}) {
                 ? proxyOptionsOverride["proxyReqOptDecorator"](proxyRequest, originalRequest)
                 : proxyRequest;
         },
-        userResHeaderDecorator: (headers, { headers: { host } }) => {
-            if (headers.location) {
+        userResHeaderDecorator: (proxyHeaders, origninalHeaders) => {
+            const { headers: { host } } = origninalHeaders;
+            if (proxyHeaders.location) {
                 if (config.proxy.specialContentReplace[servername]) { // Keep before other replacements
                     const replacements = config.proxy.specialContentReplace[servername];
                     for (const r of replacements) {
-                        headers.location = headers.location.replace(r.regex, r.replace);
+                        proxyHeaders.location = proxyHeaders.location.replace(r.regex, r.replace);
                     }
                 }
-                headers.location = headers.location
+                proxyHeaders.location = proxyHeaders.location
                     .replace(replaceDomainRegex, replaceDomainsForHost(host))
                     .replace(maskRegex, match => mask(match));
             }
-            return headers;
+            // [
+            //     "user-agent",
+            //     "accept",
+            //     "accept-encoding",
+            //     "accept-language",
+            //     "cookie"
+            // ].forEach(prop => {
+            //     if (origninalHeaders.headers.hasOwnProperty(prop) && !proxyHeaders[prop]) {
+            //         proxyHeaders[prop] = origninalHeaders.headers[prop];
+            //     }
+            // });
+            return proxyHeaders;
         },
         userResDecorator: (_, proxyResData, { headers: { host } }) => {
             if (_.req.res && _.req.res.client && _.req.res.client.servername) {
@@ -84,8 +96,9 @@ export function createDefaultProxy (targetDomain, proxyOptionsOverride = {}) {
             ) {
 
                 const parsedUrl = url.parse(unmasked);
-                const clientIp = req.headers["x-forwarded-for"]
-                    ? req.headers["x-forwarded-for"].split(/,\s?/g)[0]
+                const pverwrittenIp = req.headers["x-forwarded-for"] || req.headers["x-real-ip"];
+                const clientIp = pverwrittenIp
+                    ? pverwrittenIp.split(/,\s?/g)[0]
                     : req.connection.remoteAddress.split(":").pop();
                 const encodedIp = encodeURIComponent(clientIp);
 

@@ -5,7 +5,9 @@
   "module": "src/api.js",
   "scripts": {
     "test": "exit 0",
-    "start": "node -r esm src/api.js"
+    "start": "node -r esm src/api.js",
+    "mask": "node -r esm scripts.js mask",
+    "unmask": "node -r esm scripts.js unmask"
   },
   "keywords": [
     "proxy"

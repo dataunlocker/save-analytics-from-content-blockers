@@ -1,9 +1,15 @@
 const env = process.env.APP__ENV_NAME || "local";
 const isLocal = env === "local" || env === "test";
+const strippedPath = process.env.APP__STRIPPED_PATH || '';
+
+console.log("Environment variables:");
+console.log(`APP__STRIPPED_PATH=${strippedPath} (path added to original host in analytics scripts)`);
+console.log(`APP__ENV_NAME=${env} (should not be local nor test in production)`);
 
 export default {
     isLocalEnv: isLocal,
     httpPort: process.env.PORT || 80,
+    strippedPath,
     proxyDomain: "",          // Domain to proxy calls through. Leave it empty to use the requested domain as a proxy domain
     proxy: {                  // Proxy configuration is here
         domains: [            // These domains are replaced in any proxied response (including scripts, URLs and redirects)
@@ -69,6 +75,7 @@ export default {
         },
         maskPaths: [ // Paths which are masked in URLs and redirects in order to avoid firing ad-blocking rules
             "/google-analytics",
+            "/www.google-analytics.com",
             "/adsbygoogle",
             "/googleads",
             "/log_event\\?",

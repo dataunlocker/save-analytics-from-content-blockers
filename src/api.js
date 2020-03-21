@@ -48,7 +48,7 @@ export async function init () {
         });
 
         app.listen(config.httpPort, function onReady () {
-            info(`Web server is listening on port ${ config.httpPort }`);
+            info(`Analytics proxy web server is listening on port ${ config.httpPort }`);
             isReady = true;
         });
 
