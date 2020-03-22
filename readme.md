@@ -6,6 +6,8 @@ Back end for proxying Google Analytics / Google Tag Manager stuff, which primari
 >
 > This is the repository with the application code for [my Medium article "Save Your Analytics from Content Blockers"](https://medium.com/@zitro/save-your-analytics-from-content-blockers-7ee08c6ec7ee), which allows you to launch a proxy of Google Tag Manager / Google Analytics stuff avoiding ad-blocking.
 
+Available as a [Docker container](https://hub.docker.com/r/zitros/analytics-saviour) (check [setup](#setup) instructions below).
+
 ## How Does It Work
 
 Google Tag Manager (or plain Google Analytics) is a set of scripts used on the **front end** to track user actions (button clicks, page hits, device analytics, etc). Google's out-of-the-box solution works well, however, almost all ad-blocking software block Google tag manager / Google analytics by default. Hence, companies that are just on their start may loose a big
