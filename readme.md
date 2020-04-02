@@ -49,7 +49,7 @@ In order to enable analytics proxying, you have to perform some DevOps in your i
 
 1. Run a dedicated back end (container) with proxy (NodeJS application / container in this repository) - see setup instructions below.
 2. Create forwarding rule from your front end to hit this back end.
-    1. For instance, proxy all calls requesting `/gtm-proxy/*` to this back end. You can either strip `/gtm-proxy` in your setup or make use of `APP__STRIPPED_PATH` env variable by specifying it to `/gtm-proxy`. Ultimately, the request path `https://your-domain.com/gtm-proxy/www.google-analytics.com/analytics.js` should land as `/www.google-analytics.com/analytics.js` at the NodeJS proxy application/container (this repository), stripping `/gtm-proxy` from the URL.
+    1. For instance, proxy all calls requesting `/gtm-proxy/*` to this back end. In this case you must also specify env variable `APP__STRIPPED_PATH=/gtm-proxy`. Ultimately, the request path `https://your-domain.com/gtm-proxy/www.google-analytics.com/analytics.js` should land as `/www.google-analytics.com/analytics.js` at the NodeJS proxy application/container (this repository), stripping `/gtm-proxy` from the URL.
     2. It is important to use your own domain, as using centralized domains might one day appear at the ad-blocking databases.
 3. **Modify your initial Google Tag Manager / Google Analytics script to request the proxied file**
     1. Replace `https://www.googletagmanager.com/gtag/js?id=UA-123456-7` there to use `https://your-domain.com/gtm-proxy/www.googletagmanager.com/gtag/js?id=UA-123456-7` (or whatever path you've set up). Also, mask the URL by running `npm run mask <YOUR_URL>` in this repository so that ad-blockers won't block it right away.
@@ -79,7 +79,22 @@ Available environment variables:
 
 ```bash
 APP__STRIPPED_PATH=/gtm-proxy
-# A URL prefix to strip. If you didn't manage to remove this prefix in the request hitting the container, you can specify it here. 
+# A prefix which has been stripped in the request path reaching analytics-saviour.
+# If your ingress/router/etc strips the prefix you are required to set this variable.
+#
+# On your website, most likely you'll decide to route analytics using f.e. `/gtm-proxy`
+# prefix. Your "entry URL" in case of Google Analytics case will be
+# example.com/gtm-proxy/*(d3d3Lmdvb2dsZS1hbmFseXRpY3MuY29t)*/*(YW5hbHl0aWNzLmpz)*
+# (masked example.com/gtm-proxy/www.google-analytics.com/analytics.js).
+# Your ingress/router/etc must strip the `/gtm-proxy` path and thus analytics-saviour
+# gets localhost/*(d3d3Lmdvb2dsZS1hbmFseXRpY3MuY29t)*/*(YW5hbHl0aWNzLmpz)* hit.
+# However, many scripts which are proxied reference external domains. Normally, these
+# domains are blocked by adblockers, but luckily analytics-saviour finds and replaces
+# those domains with your (request) domain and the appropriate path to handle again later.
+# THE ONLY THING it cannot figure out is which part of the URL has been stripped before
+# reaching analytics-saviour so that next front end requests land to the same prefixed path
+# on your domain e.g. example.com/gtm-proxy/*(d3d3Lmdvb2dsZS1hbmFseXRpY3MuY29t)*/collect?..
+# Because of this, she path you strip must be explicitly provided.
 ```
 
 ### NodeJS Application

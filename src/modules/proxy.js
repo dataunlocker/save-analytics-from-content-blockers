@@ -50,17 +50,6 @@ export function createDefaultProxy (targetDomain, proxyOptionsOverride = {}) {
                     .replace(replaceDomainRegex, replaceDomainsForHost(host))
                     .replace(maskRegex, match => mask(match));
             }
-            // [
-            //     "user-agent",
-            //     "accept",
-            //     "accept-encoding",
-            //     "accept-language",
-            //     "cookie"
-            // ].forEach(prop => {
-            //     if (origninalHeaders.headers.hasOwnProperty(prop) && !proxyHeaders[prop]) {
-            //         proxyHeaders[prop] = origninalHeaders.headers[prop];
-            //     }
-            // });
             return proxyHeaders;
         },
         userResDecorator: (_, proxyResData, { headers: { host } }) => {
@@ -117,7 +106,7 @@ export function createDefaultProxy (targetDomain, proxyOptionsOverride = {}) {
                 ? proxyOptionsOverride["proxyReqPathResolver"](req, unmasked)
                 : unmasked;
 
-            info(`Proxied: ${ servername }${ finalPath }`);
+            info(`proxied: ${ servername }${ finalPath }`);
 
             return finalPath;
 
