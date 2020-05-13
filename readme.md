@@ -115,7 +115,20 @@ Proxied: www.google-analytics.com/collect?v=1&_v=j73&a=531530768&t=pageview&_s=1
 
 Check the [test-static/index.html](test-static/index.html) file's code to see how to bind the proxied analytics to your front end.
 
-## Configuration 
+### Proxy in Front of the Proxy
+
+Before the request hits this NodeJS app / container, you have to proxy/assign some useful headers to it (`host` and `x-real-ip` or `x-forwarded-for`). Below is the example of the minimal Nginx proxy configuration.
+
+```
+location /gtm-proxy/ {
+    proxy_set_header Host $host;
+    proxy_set_header x-real-ip $remote_addr;
+    proxy_set_header x-forwarded-for $proxy_add_x_forwarded_for;
+    proxy_pass http://app-address-running-in-your-infrastructure;
+}
+```
+
+## Configuration
 
 You can configure which third-parties to proxy/replace and how to do it in the config file. Find the actual configuration in [config.js](config.js) file:
 
