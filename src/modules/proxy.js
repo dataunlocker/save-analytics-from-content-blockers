@@ -85,9 +85,9 @@ export function createDefaultProxy (targetDomain, proxyOptionsOverride = {}) {
             ) {
 
                 const parsedUrl = url.parse(unmasked);
-                const pverwrittenIp = req.headers["x-forwarded-for"] || req.headers["x-real-ip"]; // TODO: || req.connection.remoteAddress; // in case no proxy is used (dedicated domain)
-                const clientIp = pverwrittenIp
-                    ? pverwrittenIp.split(/,\s?/g)[0]
+                const overwrittenIp = req.headers["x-forwarded-for"] || req.headers["x-real-ip"];
+                const clientIp = overwrittenIp
+                    ? overwrittenIp.split(/,\s?/g)[0]
                     : req.connection.remoteAddress.split(":").pop();
                 const encodedIp = encodeURIComponent(clientIp);
 

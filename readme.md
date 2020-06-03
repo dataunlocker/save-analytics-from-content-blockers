@@ -39,7 +39,7 @@ run this proxy server on your end and figure out how to combine it with your app
 
 Technically, NodeJS proxy API works as follows:
 
-1. Request to `/` returns sample application (see [src/test-static/index.html](src/test-static/index.html)) if enabled (see config).
+1. Request to `/` returns sample application (see [src/static-test/index.html](src/static-test/index.html)) if enabled (see config).
 2. Request to `/domain-name-or-masked-name/*` proxies requests to `domain-name-or-masked-name` with path `*`.
 3. You can run the application using `npm install && npm run start` and request [http://localhost/www.googletagmanager.com/gtag/js?id=GTM-1234567](http://localhost/www.googletagmanager.com/gtag/js?id=GTM-1234567) (replace `GTM-1234567` with your GTM tag). That's it!
 
@@ -54,7 +54,7 @@ In order to enable analytics proxying, you have to perform some DevOps in your i
 3. **Modify your initial Google Tag Manager / Google Analytics script to request the proxied file**
     1. Replace `https://www.googletagmanager.com/gtag/js?id=UA-123456-7` there to use `https://your-domain.com/gtm-proxy/www.googletagmanager.com/gtag/js?id=UA-123456-7` (or whatever path you've set up). Also, mask the URL by running `npm run mask <YOUR_URL>` in this repository so that ad-blockers won't block it right away.
     2. For instance, if you run `npm run mask www.google-analytics.com/analytics.js`, you get this masked URL: `*(d3d3Lmdvb2dsZS1hbmFseXRpY3MuY29t)*/*(YW5hbHl0aWNzLmpz)*`. Use it in your script tag now: `<script src="/gtm-proxy/*(d3d3Lmdvb2dsZS1hbmFseXRpY3MuY29t)*/*(YW5hbHl0aWNzLmpz)*" async></script>`.
-    3. The [example](src/test-static/index.html) in this repository uses unmasked `/www.googletagmanager.com/gtm.js` (which is equivalent of `http://localhost/www.googletagmanager.com/gtm.js`).
+    3. The [example](src/static-test/index.html) in this repository uses unmasked `/www.googletagmanager.com/gtm.js` (which is equivalent of `http://localhost/www.googletagmanager.com/gtm.js`).
 4. Test the thing!
 
 **This to consider before implementing the solution**:
@@ -95,6 +95,8 @@ APP__STRIPPED_PATH=/gtm-proxy
 # reaching analytics-saviour so that next front end requests land to the same prefixed path
 # on your domain e.g. example.com/gtm-proxy/*(d3d3Lmdvb2dsZS1hbmFseXRpY3MuY29t)*/collect?..
 # Because of this, she path you strip must be explicitly provided.
+APP__ENV_NAME=local
+# APP__ENV_NAME=local or APP__ENV_NAME=test (default) will display static content from `static-test`.
 ```
 
 ### NodeJS Application
@@ -113,7 +115,7 @@ Proxied: www.google-analytics.com/analytics.js
 Proxied: www.google-analytics.com/collect?v=1&_v=j73&a=531530768&t=pageview&_s=1&dl=http%3A%2F%2Flocalhost%2F&ul=ru&de=UTF-8&dt=Test&sd=24-bit&sr=1500x1000&vp=744x880&je=0&_u=AACAAEAB~&jid=&gjid=&cid=2E31579F-EE30-482F-9888-554A248A9495&tid=UA-98253329-1&_gid=1276054211.1554658225&z=1680756830&uip=1
 ```
 
-Check the [test-static/index.html](test-static/index.html) file's code to see how to bind the proxied analytics to your front end.
+Check the [static-test/index.html](static-test/index.html) file's code to see how to bind the proxied analytics to your front end.
 
 ### Proxy in Front of the Proxy
 

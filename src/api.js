@@ -28,14 +28,19 @@ export async function init () {
 
         app = express();
         app.disable("x-powered-by");
+        app.use("/robots.txt", (_, res) => res.status(200).set("Content-Type", "text/plain").send(
+            'User-agent: *\nDisallow: /'
+        ));
 
         enableDefaultProxy(app);
 
         if (config.isLocalEnv) {
-            app.use("/", express.static(`${ __dirname }/../test-static`));
+            app.use("/", express.static(`${ __dirname }/../static-test`));
         } else {
             app.use("/", (_, res) => res.status(200).set("Content-Type", "text/html").send(
-                "<html><head><title>Proxy API</title></head><body>It works! Try requesting something like <a href=\"www.google-analytics.com/analytics.js\">www.google-analytics.com/analytics.js</a>.</body></html>"
+                '<html><head><title>Mirror</title><meta charset="UTF-8"/><meta name="robots" content="noindex, nofollow"></head>' +
+                '<body><noscript></noscript>It works! Try requesting something like ' +
+                '<a href="www.google-analytics.com/analytics.js">www.google-analytics.com/analytics.js</a>.</body></html>'
             ));
         }
 
