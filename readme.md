@@ -95,8 +95,17 @@ APP__STRIPPED_PATH=/gtm-proxy
 # reaching analytics-saviour so that next front end requests land to the same prefixed path
 # on your domain e.g. example.com/gtm-proxy/*(d3d3Lmdvb2dsZS1hbmFseXRpY3MuY29t)*/collect?..
 # Because of this, she path you strip must be explicitly provided.
+
 APP__ENV_NAME=local
 # APP__ENV_NAME=local or APP__ENV_NAME=test (default) will display static content from `static-test`.
+
+APP__HOSTS_WHITELIST_REGEX="^(example\\.com|mysecondwebsite\\.com)$"
+# A JavaScript regular expression that the host must match. By default, it matches ANY HOST, MAKING
+# YOUR PROXY AVAILABLE TO ANYONE. Make sure you screen all special regexp characters here. Examples:
+# APP__HOSTS_WHITELIST_REGEX="^example\\.com$" (only the domain example.com is allowed to access the proxy)
+# APP__HOSTS_WHITELIST_REGEX="^.*\\.example\\.com$" (only subdomains of example.com are allowed)
+# APP__HOSTS_WHITELIST_REGEX="^.*\\.?example\\.com$" (example.com and all its subdomains are allowed)
+# APP__HOSTS_WHITELIST_REGEX="^(example\\.com|mysecondwebsite\\.com)$" (multiple specified domains are allowed)
 ```
 
 ### NodeJS Application

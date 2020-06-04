@@ -1,15 +1,26 @@
+const MATCH_EVERYTHING_STRING = '.*';
 const env = process.env.APP__ENV_NAME || "local";
 const isLocal = env === "local" || env === "test";
 const strippedPath = process.env.APP__STRIPPED_PATH || '';
+const hostsWhitelistRegex = (() => {
+    try {
+        return new RegExp(process.env.APP__HOSTS_WHITELIST_REGEX || MATCH_EVERYTHING_STRING);
+    } catch (e) {
+        console.error(`APP__HOSTS_WHITELIST_REGEX=${process.env.APP__HOSTS_WHITELIST_REGEX} cannot be converted to RegExp:`, e, '\nUsing the default.');
+        return new RegExp(MATCH_EVERYTHING_STRING);
+    }
+})();
 
 console.log("Environment variables:");
 console.log(`APP__STRIPPED_PATH=${strippedPath} (path added to original host in analytics scripts)`);
 console.log(`APP__ENV_NAME=${env} (should not be local nor test in production)`);
+console.log(`APP__HOSTS_WHITELIST_REGEX=${hostsWhitelistRegex}${hostsWhitelistRegex.toString() === `/${MATCH_EVERYTHING_STRING}/` ? ' (YAY!! Anyone can use your proxy!)' : ''}`);
 
 export default {
     isLocalEnv: isLocal,
     httpPort: process.env.PORT || 80,
     strippedPath,
+    hostsWhitelistRegex: hostsWhitelistRegex,
     proxyDomain: "",          // Domain to proxy calls through. Leave it empty to use the requested domain as a proxy domain
     proxy: {                  // Proxy configuration is here
         domains: [            // These domains are replaced in any proxied response (including scripts, URLs and redirects)
