@@ -94,7 +94,7 @@ APP__STRIPPED_PATH=/gtm-proxy
 # THE ONLY THING it cannot figure out is which part of the URL has been stripped before
 # reaching analytics-saviour so that next front end requests land to the same prefixed path
 # on your domain e.g. example.com/gtm-proxy/*(d3d3Lmdvb2dsZS1hbmFseXRpY3MuY29t)*/collect?..
-# Because of this, she path you strip must be explicitly provided.
+# Because of this, the path you strip must be explicitly provided.
 
 APP__ENV_NAME=local
 # APP__ENV_NAME=local or APP__ENV_NAME=test (default) will display static content from `static-test`.
