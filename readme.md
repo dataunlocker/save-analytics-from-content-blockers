@@ -6,7 +6,12 @@ Back end for proxying Google Analytics / Google Tag Manager stuff, which primari
 >
 > This is the repository with the application code for [my Medium article "Save Your Analytics from Content Blockers"](https://medium.com/@zitro/save-your-analytics-from-content-blockers-7ee08c6ec7ee), which allows you to launch a proxy of Google Tag Manager / Google Analytics stuff avoiding ad-blocking.
 
-Soon will be available [at dataunlocker.com](https://dataunlocker.com/) as a service. Currently available as a [Docker container](https://hub.docker.com/r/zitros/analytics-saviour) (check [setup](#setup) instructions below).
++ Available soon as a service at [**dataunlocker.com**](https://dataunlocker.com/) (subscribe to be notified).
++ The back end is now open sourced for manual integration with its [setup](#setup)/usage instructions described below.
+
+```
+docker pull zitros/analytics-saviour
+```
 
 ## How Does It Work
 
