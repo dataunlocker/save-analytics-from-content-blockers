@@ -21,7 +21,7 @@ const replaceDomainsForHost = (host) => (match, pos, str) => {
         escapedSlashes
             ? (config.proxyDomain || host).replace(/\//g, "\\/") + "\\"
             : (config.proxyDomain || host)
-    }${ config.strippedPath }/${ match }`;
+    }${ config.strippedPath }/${ mask(match) }`;
     return r;
 };
 

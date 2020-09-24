@@ -88,6 +88,7 @@ export default {
             "/google-analytics",
             "/www.google-analytics.com",
             "/adsbygoogle",
+            "/gtag/js",
             "/googleads",
             "/log_event\\?",
             "/r/collect",

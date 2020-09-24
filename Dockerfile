@@ -5,7 +5,7 @@ FROM alpine AS stage
 WORKDIR /app
 COPY . /app
 
-RUN apk add --update npm=12.15.0-r1
+RUN apk add --update 'npm<13.0.0'
 RUN npm install
 
 # Build aclual container
@@ -16,7 +16,7 @@ COPY . /app
 COPY --from=stage /app/node_modules /app/node_modules
 WORKDIR /app
 
-RUN apk add --update nodejs=12.15.0-r1
+RUN apk add --update 'nodejs<13.0.0'
 
 EXPOSE 80
 
