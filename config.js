@@ -26,6 +26,7 @@ export default {
         domains: [            // These domains are replaced in any proxied response (including scripts, URLs and redirects)
             "adservice.google.com",
             "www.google-analytics.com",
+            "analytics.google.com",
             "www.googleadservices.com",
             "www.googletagmanager.com",
             "google-analytics.bi.owox.com",
