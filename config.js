@@ -94,6 +94,7 @@ export default {
             "/log_event\\?",
             "/r/collect",
             "/j/collect",
+            "/g/collect",
             "/collect",
             "/pageread/conversion",
             "/pagead/conversion",
