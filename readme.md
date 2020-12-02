@@ -83,6 +83,11 @@ docker run -p 80:80 zitros/analytics-saviour
 Available environment variables:
 
 ```bash
+APP__PROXY_DOMAIN=yourdomain
+# Change the target domain specified in the analysis script.
+#
+# This is useful when dealing with domains called from a proxy that are not actually requested domains.
+
 APP__STRIPPED_PATH=/gtm-proxy
 # A prefix which has been stripped in the request path reaching analytics-saviour.
 # If your ingress/router/etc strips the prefix you are required to set this variable.
