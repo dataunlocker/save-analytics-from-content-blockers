@@ -13,8 +13,8 @@ const hostsWhitelistRegex = (() => {
 })();
 
 console.log("Environment variables:");
-console.log(`APP__PROXY_DOMAIN=${proxyDomain} (path added to original host replace proxy host`);
-console.log(`APP__STRIPPED_PATH=${strippedPath} (proxy domain added to replace original host in analytics scripts)`);
+console.log(`APP__STRIPPED_PATH=${strippedPath} (a prefix path added to the original host, which will be removed in the proxy request)`);
+console.log(`APP__PROXY_DOMAIN=${proxyDomain} (an optional proxy domain which will be used for client-side requests instead of the current domain)`);
 console.log(`APP__ENV_NAME=${env} (should not be local nor test in production)`);
 console.log(`APP__HOSTS_WHITELIST_REGEX=${hostsWhitelistRegex}${hostsWhitelistRegex.toString() === `/${MATCH_EVERYTHING_STRING}/` ? ' (YAY!! Anyone can use your proxy!)' : ''}`);
 
@@ -96,7 +96,7 @@ export default {
             "/log_event\\?",
             "/r/collect",
             "/j/collect",
-            "/g/collect",
+            "/g/collect", // As of Dec 2020, Google Measurement Protocol v2 doesn't yet support location overwriting.
             "/collect",
             "/pageread/conversion",
             "/pagead/conversion",
