@@ -1,19 +1,16 @@
 # Google Tag Manager (Google Analytics) Proxy
 
-Back end for proxying Google Analytics / Google Tag Manager stuff, which primarily enables ad-blocking avoidance.
-
-> Save your analytics from content blockers!
->
-> This is the repository with the application code for [my Medium article "Save Your Analytics from Content Blockers"](https://medium.com/@zitro/save-your-analytics-from-content-blockers-7ee08c6ec7ee), which allows you to launch a proxy of Google Tag Manager / Google Analytics stuff avoiding ad-blocking.
-
-+ Available soon as a service at [**dataunlocker.com**](https://dataunlocker.com/) (subscribe to be notified).
-+ The back end is now open sourced for manual integration with its [setup](#setup)/usage instructions described below.
+Back end for proxying Google Analytics / Google Tag Manager stuff, which primarily allows ad-blockers to not block your client-side analytics.
 
 ```
 docker pull zitros/analytics-saviour
 ```
 
-## How Does It Work
+**Note**: this repository contains an open-source alternative (former PoC) of [**dataunlocker.com**](https://dataunlocker.com/). [DataUnlocker](https://dataunlocker.com/) is a SaaS, "smart" proxy solution for fixing "any failing or blocked requests", including requests to Google Analytics, Google Tag Manager and other analytics tools, also without code changes in your web application. [DataUnlocker](https://dataunlocker.com/) uses a completely different (and a better) approach to what this repository offers. [DataUnlocker](https://dataunlocker.com/) is currently in closed beta, and you can request early access on its [landing page](https://dataunlocker.com/#subscribe).
+
+Originally introduced as an example in my Medium article ["Save Your Analytics from Content Blockers"](https://medium.com/@zitro/save-your-analytics-from-content-blockers-7ee08c6ec7ee), this open-sourced application is now a complete stand-alone solution for Google Tag Manager and Google Analytics.
+
+## How It Works
 
 Google Tag Manager (or plain Google Analytics) is a set of scripts used on the **front end** to track user actions (button clicks, page hits, device analytics, etc). Google's out-of-the-box solution works well, however, almost all ad-blocking software block Google tag manager / Google analytics by default. Hence, companies that are just on their start may loose a big
 portion of valuable information about their customers - how to they use the product? What do they like/dislike? Where do they stuck? And so on - an individual precision in analytics is crucial to understand the behavior of users.
@@ -83,12 +80,9 @@ docker run -p 80:80 zitros/analytics-saviour
 Available environment variables:
 
 ```bash
-APP__PROXY_DOMAIN=(empty string)
-# The domain name used as a proxy for analytics scripts. 
-#
-# When set, the traffic will be proxied via this domain. 
-# When not set, the current request domain is used as a proxy domain
-# proxy URL requested by the browser is expected to be protocol://$APP__PROXY_DOMAIN$APP__STRIPPED_PATH/*(masked-url)*.
+# Below are the environment variables that can configure this proxy.
+# The proxy URL requested by the browser is expected to be
+# protocol://$APP__PROXY_DOMAIN$APP__STRIPPED_PATH/*(masked-url)*.
 
 APP__STRIPPED_PATH=/gtm-proxy
 # A prefix which has been stripped in the request path reaching analytics-saviour.
@@ -108,8 +102,17 @@ APP__STRIPPED_PATH=/gtm-proxy
 # on your domain e.g. example.com/gtm-proxy/*(d3d3Lmdvb2dsZS1hbmFseXRpY3MuY29t)*/collect?..
 # Because of this, the path you strip must be explicitly provided.
 
+APP__PROXY_DOMAIN=
+# The domain name used as a proxy for analytics scripts (optional). 
+# When set, the traffic will be proxied via this domain.
+# When not set, the current request domain (host) is used as a proxy domain.
+# This is useful to proxy traffic via f.e. subdomain or another domain, so that you don't need to
+# strip the prefix path.
+
 APP__ENV_NAME=local
-# APP__ENV_NAME=local or APP__ENV_NAME=test (default) will display static content from `static-test`.
+# APP__ENV_NAME=local or APP__ENV_NAME=test (default for local NodeJS app)
+# will display static content from `static-test`.
+# APP__ENV_NAME=prod is used inside the Docker container unless overwritten.
 
 APP__HOSTS_WHITELIST_REGEX="^(example\\.com|mysecondwebsite\\.com)$"
 # A JavaScript regular expression that the host must match. By default, it matches ANY HOST, MAKING
