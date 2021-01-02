@@ -1,14 +1,15 @@
 # Google Tag Manager (Google Analytics) Proxy
 
-Back end for proxying Google Analytics / Google Tag Manager stuff, which primarily allows ad-blockers to not block your client-side analytics.
+This is a back end for proxying Google Analytics / Google Tag Manager,
+which primarily allows ad-blockers to not block your client-side analytics.
 
 ```
 docker pull zitros/analytics-saviour
 ```
 
-**Note**: this repository contains an open-source alternative (former PoC) of [**dataunlocker.com**](https://dataunlocker.com/). [DataUnlocker](https://dataunlocker.com/) is a SaaS, "smart" proxy solution for fixing "any failing or blocked requests", including requests to Google Analytics, Google Tag Manager and other analytics tools, also without code changes in your web application. [DataUnlocker](https://dataunlocker.com/) uses a completely different (and a better) approach to what this repository offers. [DataUnlocker](https://dataunlocker.com/) is currently in closed beta, and you can request early access on its [landing page](https://dataunlocker.com/#subscribe).
+**Note**: this repository is an open-sourced alternative (former PoC) of [**dataunlocker.com**](https://dataunlocker.com/). [DataUnlocker](https://dataunlocker.com/) is a fully-managed solution (SaaS) for fixing ad blockers' impact on the client-side analytics tools such as Google Analytics, Google Tag Manager, Segment, Facebook Pixel and any other client-side tools, also without code changes in your web application. [DataUnlocker](https://dataunlocker.com/) uses a very different (and a better) approach to what this repository offers.
 
-Originally introduced as an example in my Medium article ["Save Your Analytics from Content Blockers"](https://medium.com/@zitro/save-your-analytics-from-content-blockers-7ee08c6ec7ee), this open-sourced application is now a complete stand-alone solution for Google Tag Manager and Google Analytics.
+Originally introduced as an example in the article ["How to prevent your analytics data from being blocked by ad blockers"](https://www.freecodecamp.org/news/save-your-analytics-from-content-blockers-7ee08c6ec7ee/), this open-sourced application is now a complete stand-alone solution for Google Tag Manager and Google Analytics.
 
 ## How It Works
 
@@ -189,7 +190,8 @@ You can configure which third-parties to proxy/replace and how to do it in the c
 
 ## License
 
-[MIT](LICENSE) © [Nikita Savchenko](https://nikita.tk/developer)
++ [MIT](LICENSE) © [Nikita Savchenko](https://nikita.tk/developer)
++ [MIT](LICENSE) © [dataunlocker.com](https://dataunlocker.com)
 
 ## Contributions
 
