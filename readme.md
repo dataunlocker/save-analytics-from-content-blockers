@@ -1,7 +1,6 @@
 # Google Tag Manager (Google Analytics) Proxy
 
-This is a back end for proxying Google Analytics / Google Tag Manager,
-which primarily allows ad-blockers to not block your client-side analytics.
+A proxy back end for Google Analytics / Google Tag Manager, which allows to avoid ad-blockers blocking client-side analytics tools.
 
 ```
 docker pull zitros/analytics-saviour
