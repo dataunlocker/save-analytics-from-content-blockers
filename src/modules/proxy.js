@@ -95,8 +95,8 @@ export function createDefaultProxy (targetDomain, proxyOptionsOverride = {}) {
                     parsedUrl.search ? "&" : "?"
                 }${ 
                     config.proxy.ipOverrides[servername].queryParameterName instanceof Array
-                        ? config.proxy.ipOverrides[servername].queryParameterName.map(name => `_${ name }=${ encodedIp }`).join("&")
-                        : `_${ config.proxy.ipOverrides[servername].queryParameterName }=${ encodedIp }`
+                        ? config.proxy.ipOverrides[servername].queryParameterName.map(name => `${ name }=${ encodedIp }`).join("&")
+                        : `${ config.proxy.ipOverrides[servername].queryParameterName }=${ encodedIp }`
                 }`;
 
             }
