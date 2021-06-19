@@ -84,7 +84,7 @@ export default {
             },
             "www.google-analytics.com": {
                 urlMatch: /\/collect/,
-                queryParameterName: "uip"
+                queryParameterName: ["uip", "_uip"]
             }
         },
         maskPaths: [ // Paths which are masked in URLs and redirects in order to avoid firing ad-blocking rules
