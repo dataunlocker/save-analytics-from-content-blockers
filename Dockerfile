@@ -21,4 +21,4 @@ RUN apk add --update 'nodejs<13.0.0'
 EXPOSE 80
 
 ENV APP__ENV_NAME=prod
-CMD node -r esm src/api.js
+CMD node --max-http-header-size=1048576 -r esm src/api.js
