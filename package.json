@@ -24,7 +24,7 @@
   "homepage": "https://github.com/ZitRos/save-analytics-from-content-blockers#readme",
   "dependencies": {
     "esm": "^3.2.7",
-    "express": "^4.16.4",
+    "express": "^4.18.2",
     "express-http-proxy": "^1.5.1"
   }
 }
