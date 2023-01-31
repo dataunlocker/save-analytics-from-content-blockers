@@ -118,8 +118,8 @@ APP__HOSTS_WHITELIST_REGEX="^(example\\.com|mysecondwebsite\\.com)$"
 # A JavaScript regular expression that the host must match. By default, it matches ANY HOST, MAKING
 # YOUR PROXY AVAILABLE TO ANYONE. Make sure you screen all special regexp characters here. Examples:
 # APP__HOSTS_WHITELIST_REGEX="^example\\.com$" (only the domain example.com is allowed to access the proxy)
-# APP__HOSTS_WHITELIST_REGEX="^.*\\.example\\.com$" (only subdomains of example.com are allowed)
-# APP__HOSTS_WHITELIST_REGEX="^.*\\.?example\\.com$" (example.com and all its subdomains are allowed)
+# APP__HOSTS_WHITELIST_REGEX="\\.example\\.com$" (only subdomains of example.com are allowed)
+# APP__HOSTS_WHITELIST_REGEX="(^|\\.)example\\.com$" (example.com and all its subdomains are allowed)
 # APP__HOSTS_WHITELIST_REGEX="^(example\\.com|mysecondwebsite\\.com)$" (multiple specified domains are allowed)
 ```
 
