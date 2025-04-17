@@ -1,5 +1,5 @@
-> ℹ️ This repository isn't actively maintained.  
-> Contributions are still welcome and are appreciated — we'll be reviewing them.
+> ℹ️ This repository is no longer actively maintained, as focus has shifted to the SaaS version at [dataunlocker.com](https://www.dataunlocker.com).   
+> However, contributions are still welcome and appreciated — we'll review them as time allows.
 
 # Google Tag Manager (Google Analytics) Proxy
 
