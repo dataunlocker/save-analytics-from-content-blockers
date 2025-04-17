@@ -1,3 +1,6 @@
+> ℹ️ This repository isn't actively maintained.  
+> Contributions are still welcome and are appreciated — we'll be reviewing them.
+
 # Google Tag Manager (Google Analytics) Proxy
 
 A proxy back end for Google Analytics / Google Tag Manager, which allows to avoid ad-blockers blocking client-side analytics tools.
