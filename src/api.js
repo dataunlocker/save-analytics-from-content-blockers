@@ -49,7 +49,7 @@ export async function init () {
                 return next(err);
             }
             error(err);
-            return res.status(500).send({ error: "An error ocurred. Error info was logged." });
+            return res.status(500).send({ error: "An error occurred. Error info was logged." });
         });
 
         app.listen(config.httpPort, function onReady () {
